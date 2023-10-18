@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import z from "zod";
 import { createIssueSchema } from "@/app/api/issues/route";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 // interface IssueForm {
 //   title: string;
@@ -39,7 +40,7 @@ const NewIssue = () => {
       <TextField.Root>
         <TextField.Input placeholder="Title" {...register("title")} />
       </TextField.Root>
-      {errors.title && <p className=" text-red-600">{errors.title.message}</p>}
+      <ErrorMessage>{errors.title?.message}</ErrorMessage>
       <Controller
         control={control}
         name="description"
@@ -47,9 +48,7 @@ const NewIssue = () => {
           <SimpleMDE placeholder="Reply to comment…" {...field} />
         )}
       />
-      {errors.description && (
-        <p className=" text-red-600">{errors.description.message}</p>
-      )}
+      <ErrorMessage>{errors.description?.message}</ErrorMessage>
       <Button type="submit" className="">
         Submit New Issue
       </Button>
